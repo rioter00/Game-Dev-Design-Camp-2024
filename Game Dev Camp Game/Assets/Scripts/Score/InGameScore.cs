@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 //***
-using LootLocker.Requests;
+// using LootLocker.Requests;
 using TMPro;
 
 public class InGameScore : MonoBehaviour
@@ -67,19 +67,19 @@ public class InGameScore : MonoBehaviour
     {
         bool done = false;
         string playerID = PlayerPrefs.GetString("PlayerID");
-        LootLockerSDKManager.SubmitScore(playerID, scoreToUpload, leaderboardID, (response) =>
-        {
-            if (response.success)
-            {
-                Debug.Log("Successfully uploaded score");
-                done = true;
-            }
-            else
-            {
-                Debug.Log("Failed" + response.Error);
-                done = true;
-            }
-        });
+        // LootLockerSDKManager.SubmitScore(playerID, scoreToUpload, leaderboardID, (response) =>
+        // {
+        //     if (response.success)
+        //     {
+        //         Debug.Log("Successfully uploaded score");
+        //         done = true;
+        //     }
+        //     else
+        //     {
+        //         Debug.Log("Failed" + response.Error);
+        //         done = true;
+        //     }
+        // });
         yield return new WaitWhile(() => done == false);
     }
 
@@ -92,41 +92,41 @@ public class InGameScore : MonoBehaviour
     public IEnumerator FetchTopHighscoresRoutine()
     {
         bool done = false;
-        LootLockerSDKManager.GetScoreList(leaderboardID, 1, 0, (response) => //the second int (1) indicates how many top scoring places to be displayed while the third int (0) displays the bottom scores
-        {
-            if (response.success)
-            {
-                string tempPlayerNames = "";
-                string tempPlayerScores = "";
-
-                LootLockerLeaderboardMember[] members = response.items;
-
-                for (int i = 0; i < members.Length; i++)
-                {
-                    if (members[i].player.name != "")
-                    {
-                        tempPlayerNames += members[i].player.name;
-                    }
-                    else
-                    {
-                        tempPlayerNames += members[i].player.id;
-                    }
-                    tempPlayerScores = members[i].score.ToString();
-                    // tempPlayerNames += "\n";
-                }
-                done = true;
-                // playerNames.text = tempPlayerNames;
-                highScore.text = tempPlayerScores;
-
-                //llHighScore
-                llHighScore = members[0].score;
-            }
-            else
-            {
-                Debug.Log("Failed" + response.Error);
-                done = true;
-            }
-        });
+        // LootLockerSDKManager.GetScoreList(leaderboardID, 1, 0, (response) => //the second int (1) indicates how many top scoring places to be displayed while the third int (0) displays the bottom scores
+        // {
+        //     if (response.success)
+        //     {
+        //         string tempPlayerNames = "";
+        //         string tempPlayerScores = "";
+        //
+        //         LootLockerLeaderboardMember[] members = response.items;
+        //
+        //         for (int i = 0; i < members.Length; i++)
+        //         {
+        //             if (members[i].player.name != "")
+        //             {
+        //                 tempPlayerNames += members[i].player.name;
+        //             }
+        //             else
+        //             {
+        //                 tempPlayerNames += members[i].player.id;
+        //             }
+        //             tempPlayerScores = members[i].score.ToString();
+        //             // tempPlayerNames += "\n";
+        //         }
+        //         done = true;
+        //         // playerNames.text = tempPlayerNames;
+        //         highScore.text = tempPlayerScores;
+        //
+        //         //llHighScore
+        //         llHighScore = members[0].score;
+        //     }
+        //     else
+        //     {
+        //         Debug.Log("Failed" + response.Error);
+        //         done = true;
+        //     }
+        // });
         yield return new WaitWhile(() => done == false);
     }
 
